@@ -85,7 +85,7 @@ jobs:
 
       - name: Create a New Environment
         if: steps.get-env-name.outputs.aws_env == 'None' || steps.get-env-status.outputs.aws_env_status == 'Terminated'
-        run: eb create ${{ inputs.aws-env }} --instance-types ${{vars.AWS_EB_ENV_INSTANCE_TYPES}} --cname ${{ inputs.aws-env }} --timeout 20
+        run: eb create ${{ inputs.aws-env }} --instance-types t3.micro --cname ${{ inputs.aws-env }} --timeout 20
 
       - name: Deploy if Environment Exists
         if: steps.get-env-name.outputs.aws_env == inputs.aws-env && steps.get-env-status.outputs.aws_env_status != 'Terminated'

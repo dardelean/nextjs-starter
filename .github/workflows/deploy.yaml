@@ -85,11 +85,11 @@ jobs:
 
       - name: Create a New Environment
         if: steps.get-env-name.outputs.aws_env == 'None' || steps.get-env-status.outputs.aws_env_status == 'Terminated'
-        run: eb create ${{ inputs.aws-env }} --instance-types ${{vars.AWS_EB_ENV_INSTANCE_TYPES}} --cname ${{ inputs.aws-env }}
+        run: eb create ${{ inputs.aws-env }} --instance-types ${{vars.AWS_EB_ENV_INSTANCE_TYPES}} --cname ${{ inputs.aws-env }} --timeout 20
 
       - name: Deploy if Environment Exists
         if: steps.get-env-name.outputs.aws_env == inputs.aws-env && steps.get-env-status.outputs.aws_env_status != 'Terminated'
-        run: eb deploy ${{ inputs.aws-env }}
+        run: eb deploy ${{ inputs.aws-env }} --timeout 20
 
       - name: Get AWS ENV CNAME
         id: get-env-cname
